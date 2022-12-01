@@ -80,60 +80,60 @@ Route::post('/ejercicio2/b', function (Request $request) {
     );
 });
 
-// Route::post('/ejercicio2/c', function (Request $request) {
-//     $name = $request->get('name');
-//     $description = $request->get('description');
-//     switch ($request->query('discount')) {
-//         case 'SAVE5':
-//             $discount = 5;
-//             break;
-//         case 'SAVE10':
-//             $discount = 10;
-//             break;
-//         case 'SAVE15':
-//             $discount = 15;
-//             break;
-//         default:
-//             $discount = 0;
-//             break;
-//     }
-//     $price = (100 - $discount) / 100 * $request->get('price');
-//     return Response::json([
-//         'name' => $name,
-//         'description' => $description,
-//         'price' => $price,
-//         'discount' => $discount,
-//     ]);
-// });
-
 Route::post('/ejercicio2/c', function (Request $request) {
-
-    // Una forma simple para sacar el discount, con if-else
-    $discount = 0;
-    if ($request->query('discount') == "SAVE5") {
-        $discount = 5;
-    } else if ($request->query('discount') == "SAVE10") {
-        $discount = 10;
-    } else if ($request->query('discount') == "SAVE15") {
-        $discount = 15;
+    $name = $request->get('name');
+    $description = $request->get('description');
+    switch ($request->query('discount')) {
+        case 'SAVE5':
+            $discount = 5;
+            break;
+        case 'SAVE10':
+            $discount = 10;
+            break;
+        case 'SAVE15':
+            $discount = 15;
+            break;
+        default:
+            $discount = 0;
+            break;
     }
-
-    // Otra forma de sacar el discount, con el match de PHP 8
-    // $discount = match ($request->query('discount')) {
-    //     'SAVE5' => 5,
-    //     'SAVE10' => 10,
-    //     'SAVE15' => 15,
-    //     default => 0,
-    // };
-
-    // Calcular precio nuevo
     $price = (100 - $discount) / 100 * $request->get('price');
-
-    // Devolver respuesta
     return Response::json([
-        'name' => $request->get('name'),
-        'description' => $request->get('description'),
+        'name' => $name,
+        'description' => $description,
         'price' => $price,
         'discount' => $discount,
     ]);
+// });
+
+// Route::post('/ejercicio2/c', function (Request $request) {
+
+//     // Una forma simple para sacar el discount, con if-else
+//     $discount = 0;
+//     if ($request->query('discount') == "SAVE5") {
+//         $discount = 5;
+//     } else if ($request->query('discount') == "SAVE10") {
+//         $discount = 10;
+//     } else if ($request->query('discount') == "SAVE15") {
+//         $discount = 15;
+//     }
+
+//     // Otra forma de sacar el discount, con el match de PHP 8
+//     // $discount = match ($request->query('discount')) {
+//     //     'SAVE5' => 5,
+//     //     'SAVE10' => 10,
+//     //     'SAVE15' => 15,
+//     //     default => 0,
+//     // };
+
+//     // Calcular precio nuevo
+//     $price = (100 - $discount) / 100 * $request->get('price');
+
+//     // Devolver respuesta
+//     return Response::json([
+//         'name' => $request->get('name'),
+//         'description' => $request->get('description'),
+//         'price' => $price,
+//         'discount' => $discount,
+//     ]);
 });
