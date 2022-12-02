@@ -30,18 +30,22 @@ Route::post('/ejercicio1', function () {
     return "POST OK";
 });
 Route::post('/ejercicio3', function (Request $request) {
-    $request->validate([
-        'name' => 'required|max:64',
-        'description' => 'required|max:512',
-        'price' => 'required|min:0',
-        'has_battery' => 'boolean',
-        'battery_duration' => 'exclude_if:has_battery,false|min:0|integer|nullable',
-        'colors' => 'required_array_keys',
-        'dimensions.width' => 'min:0',
-        'dimensions.height' => 'min:0',
-        'dimensions.length' => 'min:0',
-        'accessories.name' => 'string',
-        'accessories.price' => 'numeric|min:0'
+    $request->validate(
+        [
+            'name' => 'required|max:64|not_in:null',
+            'description' => 'required|max:512|not_in:null',
+            'price' => 'required|gt:0|not_in:null',
+            'has_battery' => 'required|boolean',
+            'battery_duration' => 'exclude_if:has_battery,false|numeric|gt:0',
+            'colors' => 'required|not_in:null',
+            'colors.*' => 'required|not_in:null|string',
+            'dimensions' => 'not_in:null',
+            'dimensions.width' => 'numeric|gt:0|',
+            'dimensions.height' => 'numeric|gt:0|',
+            'dimensions.length' => 'numeric|gt:0|',
+            'accessories.*' => 'required|array|not_in:null',
+            'accessories.*.name' => 'string|not_in:null',
+            'accessories.*.price' => 'numeric|gt:0|'
 
     ]);
 });
